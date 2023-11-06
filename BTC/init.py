@@ -1,5 +1,5 @@
 import bitcoinutils.setup as setup
-from BTC import consts
+import consts
 
 
 def initNetwork():

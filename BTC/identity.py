@@ -1,6 +1,6 @@
 from bitcoinutils.keys import P2pkhAddress, PrivateKey, PublicKey
-from BTC import init
-from BTC import consts
+import init
+import consts
 
 init.initNetwork()
 

@@ -1,8 +1,8 @@
 from bitcoinutils.script import Script
-from BTC.identity import Id
-from BTC import init
-from BTC import consts
-from BTC import scripts
+from identity import Id
+import init
+import consts
+import scripts
 
 init.initNetwork()
 

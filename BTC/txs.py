@@ -2,11 +2,11 @@ from typing import Tuple
 
 from bitcoinutils.transactions import Transaction, TxOutput, TxInput
 from bitcoinutils.script import Script
-from BTC.identity import Id
-from BTC import init
-from BTC import scripts
-from BTC import consts
-from BTC.helper import hash256
+from identity import Id
+import init
+import scripts
+import consts
+from helper import hash256
 
 init.initNetwork()
 

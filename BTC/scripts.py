@@ -17,13 +17,15 @@ def get_script_TXs(id_Alice: Id, id_Bob: Id, id_Ingrid: Id, timedelay: int) -> S
         timedelay, 'OP_CHECKSEQUENCEVERIFY',
         'OP_ENDIF'])
 
-    先验证A的签名,如果有B的签名,那么再加上I的签名可以使用该输出。如果没有B的签名那么A可以在时间锁之后直接使用该输出
+    Trước tiên hãy xác minh chữ ký của A. 
+    Nếu có chữ ký của B thì thêm chữ ký của I để sử dụng đầu ra. 
+    Nếu không có chữ ký từ B thì A có thể sử dụng đầu ra trực tiếp sau khi khóa thời gian
 '''
 
 def get_script_TXs(id_Alice: Id, id_Ingrid: Id) -> Script:
     return Script([
         id_Alice.pk.to_hex(), 'OP_CHECKSIGVERIFY', id_Ingrid.pk.to_hex(), 'OP_CHECKSIGVERIFY', 0x1])
-    # 先验证Alice的签名再验证Ingrid的签名，都正确之后可使用该输出。
+    # Đầu tiên hãy xác minh chữ ký của Alice và sau đó là chữ ký của Ingrid. Sau khi cả hai đều đúng, bạn có thể sử dụng kết quả đầu ra.。
 
 
 def get_script_txa_v(id_a: Id, id_i: id, timedelay: int) -> Script:
@@ -49,7 +51,7 @@ def get_script_3sig(id_a: Id, id_b: Id, id_i: Id) -> Script:
 
 
 def get_script_2sig(id_1: Id, id_2: Id) -> Script:
-    # id_a.pk.to_hex()：以十六进制字符串形式返回 public key（SEC格式-默认压缩）
+    # id_a.pk.to_hex(): Trả về khóa chung dưới dạng chuỗi thập lục phân (định dạng SEC - nén mặc định)
     script = Script([
         id_1.pk.to_hex(), 'OP_CHECKSIGVERIFY', id_2.pk.to_hex(), 'OP_CHECKSIGVERIFY', 0x1])  
     return script
@@ -86,7 +88,7 @@ def get_script_ln_ct(id_a: Id, id_b: Id, id_i: Id, id_punish_vc: Id, id_punish_c
         'OP_ENDIF', 0x1])   
 
 
-# 闪电网络 commitment transaction
+# giao dịch cam kết mạng Lightning
 def get_output_ln_ct(id_post: Id, id_punish: Id, rev_hash, timedelay: int) -> Script:
     """
     spend with either: 
@@ -102,7 +104,7 @@ def get_output_ln_ct(id_post: Id, id_punish: Id, rev_hash, timedelay: int) -> Sc
         'OP_ENDIF', 0x1])
 
 
-# 闪电网络下有时效性虚拟通道的commitment transaction脚本
+# Tập lệnh giao dịch cam kết cho kênh ảo nhạy cảm với thời gian trong Lightning Network
 def get_script_ln_ct_val(id_l: Id, id_r: Id, id_punish_vc: id, id_punish_channel: id, rev_hash, timedelay1: int,
                          timedelay2: int) -> Script:
     """

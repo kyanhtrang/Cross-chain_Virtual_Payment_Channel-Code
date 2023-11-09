@@ -10,15 +10,15 @@ from helper import hash256
 
 init.initNetwork()
 
-# 账本通道的TXf 用户Alice和Ingrid的输入，输出需要Alice和Ingrid两个人的签名（上链）
+# TXf của kênh sổ cái là đầu vào của người dùng Alice và Ingrid và đầu ra yêu cầu chữ ký của cả Alice và Ingrid (trên chuỗi)
 def get_TX_multisig(tx_in0: TxInput, tx_in1: TxInput, id_1: Id, id_2: Id, c: int, fee: int, timedelay: int = 0x02) -> Transaction:
     
-    tx_out = TxOutput(c , scripts.get_script_2sig(id_1, id_2))  # （发送的币值，接收方的公钥脚本）
+    tx_out = TxOutput(c , scripts.get_script_2sig(id_1, id_2))  # (Giá trị tiền tệ đã gửi, tập lệnh khóa công khai của người nhận)
 
-    tx = Transaction([tx_in0, tx_in1], [tx_out])  # 打包交易（[输入1，输入2]，输出）
+    tx = Transaction([tx_in0, tx_in1], [tx_out])  # Giao dịch trọn gói ([đầu vào 1, đầu vào 2], đầu ra)
 
-    sig_1 = id_1.sk.sign_input(tx, 0, id_1.p2pkh)  # a的签名
-    sig_2 = id_2.sk.sign_input(tx, 1, id_2.p2pkh)  # b的签名
+    sig_1 = id_1.sk.sign_input(tx, 0, id_1.p2pkh)  # chữ ký của a
+    sig_2 = id_2.sk.sign_input(tx, 1, id_2.p2pkh)  # chữ ký của b
 
     tx_in0.script_sig = Script([sig_1, id_1.pk.to_hex()])  
     tx_in1.script_sig = Script([sig_2, id_2.pk.to_hex()])  

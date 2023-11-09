@@ -20,27 +20,27 @@ contract Greeter {
     uint _amount_a_nClose;
     uint _amount_b_nClose;
 
-        //  返回合约地址
+        //  Trả lại địa chỉ hợp đồng
          function getThis() view  public returns(address){
              return address(this);
          }
-        //  向合约地址转账
+        //  Chuyển tiền đến địa chỉ hợp đồng
          function pay() payable public{          
         }
-        // 获取合约地址余额
+        // Lấy số dư địa chỉ hợp đồng
         function getBalance() view public returns(uint){
             return address(this).balance;
         }
-        // 获取某个地址余额
+        // Lấy số dư của một địa chỉ
         function getBalance1(address account) view public returns(uint){
             return account.balance;
         }
         function svalue(address payable addr,uint amount) public payable returns(address) {
-        //输入地址，给相应地址转账2 个以太币，这里是的单位是Gwei
+        // Nhập địa chỉ và chuyển 2 Ether coin tới địa chỉ tương ứng, đơn vị ở đây là Gwei.
             addr.transfer(amount);
             return msg.sender;
         }
-        // 获取当前时间
+        // Lấy thời gian hiện tại
         function get_time() view public returns(uint){
             return block.timestamp;
         }
@@ -59,22 +59,22 @@ contract Greeter {
             account2=_account2;
             account3=_account3;
         }
-        // a提交交易信息
+        // a Gửi thông tin giao dịch
         function submit_transaction_a(uint number,uint amount_a,uint amount_b,bytes32 hash,uint8 v,bytes32 r,bytes32 s,uint time) payable public returns(bool) {
             _number = number;
             _amount_a=amount_a;
             _amount_b=amount_b;
             _time=time;
             a_time=block.timestamp;
-            // 这里还有一步验签
+            // Có một bước xác minh khác ở đây
             address sign_publicKey;
             sign_publicKey=decode(hash,v,r,s);
             require(sign_publicKey==account3_publickey);
             return true;
         }
-        // b提交交易信息
+        // b Gửi thông tin giao dịch
         function submit_transaction_b(uint number,uint amount_a,uint amount_b,bytes32 hash,uint8 v,bytes32 r,bytes32 s,address payable addr,address payable addr2) payable public returns(bool){
-            // 验签
+            // xác minh
             address sign_publicKey;
             sign_publicKey=decode(hash,v,r,s);
             if(sign_publicKey==account2_publickey)
@@ -141,13 +141,13 @@ contract Greeter {
            return true;
         }
         
-        // 验签
-        //验签数据入口函数
+        // xác minh
+        // Chức năng nhập dữ liệu xác minh chữ ký
         // bytes32 hash, bytes memory signedString
         function decode(bytes32 msgh,uint8 v,bytes32 r,bytes32 s) public pure returns(address){
             return ecrecover(msgh,v,r,s);
         }
-        //将原始数据按段切割出来指定长度
+        // Cắt dữ liệu gốc thành các đoạn có độ dài được chỉ định
        function slice(bytes memory data, uint start, uint len) pure public returns (bytes memory){
             bytes memory b = new bytes(len);
             for(uint i = 0; i < len; i++){
@@ -155,12 +155,12 @@ contract Greeter {
             }
             return b;
         }
-        //使用ecrecover恢复公匙
+        // Sử dụng ecrecover để khôi phục khóa chung
         function ecrecoverDecode(bytes32 r, bytes32 s, bytes1 v1) pure public returns (address addr){
             uint8 v = uint8(v1) + 27;
             addr = ecrecover(hex"4e03657aea45a94fc7d47ba826c8d667c0d1e6e33a64a036ec44f58fa12d6c45", v, r, s);
         }
-        //bytes转换为bytes32
+        //Chuyển đổi byte thành byte32
         function bytesToBytes32(bytes memory source) pure public returns (bytes32 result) {
             assembly {
                 result := mload(add(source, 32))

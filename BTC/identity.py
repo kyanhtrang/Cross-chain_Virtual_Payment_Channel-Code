@@ -16,4 +16,4 @@ class Id:
         print("self.pk",self.pk) 
         self.addr = self.pk.get_address().to_string()
         print("self.addr",self.addr)
-        self.p2pkh = P2pkhAddress(self.addr).to_script_pub_key()    # Pay to public key hash（向公钥的哈希支付）
+        self.p2pkh = P2pkhAddress(self.addr).to_script_pub_key()    # Pay to public key hash（Trả tiền cho hàm băm của khóa chung）

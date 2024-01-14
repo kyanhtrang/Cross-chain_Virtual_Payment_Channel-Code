@@ -9,11 +9,10 @@ import json
 
 def main():
 
-
+    # Truyền private key vào hàm id để tạo ra id riêng cho ví
     id_Alice = Id('e12046ad146a0f15bcf977c86181828f1e0472ea1bd2efe9af6362c8d533ac11')      #addr moUDVi9sE5J14w7a9tAMeY4zanp2ghzgXB
     id_Ingrid = Id('e12046ad146a0f15bcf977c86181828f1e0472ea1bd2efe9af6362c8d5312345')     #addr mnUmE2gf8z3qrXaQZ93rB6VP3h4sLaT9XS
     id_Bob = Id('e12046ad146a0f15bcf977c86181828f1e0472ea1bd2efe9af6362eed53a41a7')        #addr mvQpYtrYEjG4zLuXZPDV9VprJCi1SkrWdD
-
 
     tx_in_Alice = TxInput('f14fb1b38127f18dcb0d7dbf6745fb0cc28baf8de0b37373d3e1f131383ead47', 1)
     tx_in_Ingrid = TxInput('bacf8061fa33a2149d6320bb4a6900249bb23434f4cc4f68c1f8e699a3f90ba8', 0)
@@ -30,7 +29,7 @@ def main():
     # 11aa343f89acb84dc4970ec4423c2715a37d6881a942bb30220011b43659b8cae215cb3f59e480f20ffaf7d947cb36ae2bf218239d17a36998f0121034
     # 224f6eb190525af63546d2f1cabbb7b182bb26f5911f5eeeddbd18edd78b78bffffffffa80bf9a399e6f8c1684fccf43434b29b2400694abb20639d14a
     # 233fa6180cfba000000006a4730440220497c28ece6c25640c26c66a246b474870c29f334c5ebd1f30ac536937c8ef60a0220221045d930e8b512c67e8
-    # c66188ce2b81a08583e217a50c88a687c308d96be0d012103b84f704cf460e14dd30acf27868de6b31485cf50154a6cc6c2c3e6f823a3aeffffffffff0
+    # c66188ce2b81a08583e217a50c88a687c308d96be0d012103b84f704cf460e14dd30acf27868de6bs31485cf50154a6cc6c2c3e6f823a3aeffffffffff0
     # 1e4250000000000004721034224f6eb190525af63546d2f1cabbb7b182bb26f5911f5eeeddbd18edd78b78bad2103b84f704cf460e14dd30acf27868de
     # 6b31485cf50154a6cc6c2c3e6f823a3aeffad5100000000
 
@@ -46,7 +45,7 @@ def main():
 
     # The transaction TX_f:
     TXf_Alice_Bob_V = txs.get_TXf_V(TxInput(TXs_Alice_Ingrid.get_txid(), 0), id_Alice, id_Ingrid, id_Bob, c - 3*fee, fee)
-    print_tx(TXf_Alice_Bob_V, '** TXf_Alice_Bob_V **:')
+    print_tx(TXf_Alice_Bob_V, '** TXf_Alice_Bob_V **:') 
     # ID giao dịch：  
     # Kịch bản giao dịch：0200000001e966d7a40c74093bf4705b6e279b5e14a86e2aa9768a4c79a4518fe565145dd40000000092483045022100a57bc3be1b5afabf0
     # fcde51096b389ca0670899090c386e965d305e52f1a567c02201adddd39154f39d91d27762ce2258bb5259ae685c3011b2629a1aa40602c7e160148304
@@ -54,26 +53,28 @@ def main():
     # 110f8e6066064e71d01ffffffff0128230000000000004721034224f6eb190525af63546d2f1cabbb7b182bb26f5911f5eeeddbd18edd78b78bad21032
     # c2f9e859ece82753ce26fa443d397b75d0aa93d6ac896cf775ba3e95e670079ad5100000000
     
-    #TXback_Alice_Bob = txs
+    # TXback_Alice_Bob = txs
 
-    # ############## 闪电网络：
-    # # 构建 Funding Transaction
+    # ############## Lightning Network：
+    # # Xây dựng giao dịch tài trợ
     ct_Alice_Ingrid = txs.get_TX_multisig(tx_in_Alice, tx_in_Ingrid, id_Alice, id_Ingrid, c, fee) # out：c-fee
     
-    # # 构建 Alice和Bob的 commitment transaction
+    # # Xây dựng giao dịch cam kết của Alice và Bob
     # ct_LN_Alice_Ingrid_A, script1 = txs.get_CT_LN(TxInput(ct_Alice_Ingrid.get_txid(), 0),
     #                             id_Alice, id_Ingrid, id_Bob, id_Alice, id_Ingrid, True, id_Alice, c, fee, gen_secret())# out：c-fee
     
     # ct_LN_Alice_Ingrid_I, script2 = txs.get_CT_LN(TxInput(ct_Alice_Ingrid.get_txid(), 0), 
     #                             id_Alice, id_Ingrid, id_Bob, id_Alice, id_Ingrid, False, id_Alice, c, fee, gen_secret())
     
-    # # 用于构建虚拟通道的funding transaction
+    # # giao dịch tài trợ được sử dụng để xây dựng các kênh ảo
     # txf_v_ai_A = txs.get_TXf_V_LN(TxInput(ct_LN_Alice_Ingrid_A.get_txid(), 0), id_Alice, id_Bob, id_Ingrid, c - fee, fee, script1)
     
     # txf_v_ai_I = txs.get_TXf_V_LN(TxInput(ct_LN_Alice_Ingrid_I.get_txid(), 0), id_Alice, id_Bob, id_Ingrid, c - fee, fee, script2)
     
     # print_tx(txf_v_ai_A,"txf_v_ai_A")
     # print_tx(txf_v_ai_I,"txf_v_ai_I")
+
+    
 
 if __name__ == "__main__":
     main()

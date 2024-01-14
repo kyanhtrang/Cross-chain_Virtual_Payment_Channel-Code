@@ -27,7 +27,7 @@ def hash256(hexstring: str) -> str:
 
 def print_tx(tx: Transaction, name: str) -> None:
     print(f'{name}: {int(len(tx.serialize()) / 2)} Bytes')
-    print(tx.serialize())   # 转化为字符串
+    print(tx.serialize())   # Chuyển đổi thành chuỗi
     print('----------------------------------')
 
 

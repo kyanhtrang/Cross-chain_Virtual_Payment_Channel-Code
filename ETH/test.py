@@ -162,9 +162,9 @@ def get_balance(account):
 message_cvc = []
 cvc_Ingrid_balance = 0
 cvc_Bob_balance = 0
-cvc_count = 0   # 指示message_vc[]的数组下标
+cvc_count = 0   # Cho biết chỉ mục mảng của message_vc[]
 cvc_OpenMessage_Ingrid = []
-sign_cvc_OpenMessage_Ingrid = [] # 保存ingrid签名后的信息
+sign_cvc_OpenMessage_Ingrid = [] # Lưu thông tin được ký bởi ingrid
 message_b_cvc = []
 sign_cvc_OpenMessage_Bob = []
 ec_a_hash_cvc = []
@@ -356,6 +356,7 @@ for i in range (1):
   close_cvc_abnormal(committee_contract_address,1,0,0,0)   # Đóng kênh ảo cross-chain
   # close_lc(0)   # Đóng kênh sổ cái bình thường
   close_lc_pessimistic(0)   # Đóng kênh sổ cái bất thường
+  print(commit.functions.getBalance().call())
 
 Times = np.array(Times) 
 print(Times.mean())

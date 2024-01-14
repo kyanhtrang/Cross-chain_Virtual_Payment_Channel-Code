@@ -22,9 +22,9 @@ def get_TX_multisig(tx_in0: TxInput, tx_in1: TxInput, id_1: Id, id_2: Id, c: int
 
     tx_in0.script_sig = Script([sig_1, id_1.pk.to_hex()])  
     tx_in1.script_sig = Script([sig_2, id_2.pk.to_hex()])  
+    print(tx)
     return tx
 #####################
-
 
 def get_TXc(tx_in: TxInput, id_1: Id, id_2: Id, c: float, fee: float, timedelay: int = 0x02) \
         -> Transaction:
@@ -38,8 +38,8 @@ def get_TXc(tx_in: TxInput, id_1: Id, id_2: Id, c: float, fee: float, timedelay:
     sig_i = id_2.sk.sign_input(tx, 0, script_in)
 
     tx_in.script_sig = Script([sig_a, sig_i])
+    print(tx)
     return tx
-
 
 #############################
 
@@ -56,6 +56,7 @@ def get_TXs(tx_in: TxInput, id_1: Id, id_2: Id, c: float, fee: float, timedelay:
     sig_i = id_2.sk.sign_input(tx, 0, script_in)
     
     tx_in.script_sig = Script([sig_a, sig_i])
+    print(tx)
     return tx
 #############################
 
@@ -74,6 +75,7 @@ def get_TXf_V(tx_in: TxInput, id_1: Id, id_2: Id, id_3: Id, c: float, fee: float
 
     tx_in.script_sig = Script([sig_Alice, sig_Ingrid])
 
+    print(tx)
     return tx
 #################################
 
